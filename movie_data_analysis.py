@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 # Initialize the data
 adf = pd.read_csv('amazonprime_data.csv')
@@ -36,7 +37,7 @@ df_countries = df_countries[df_countries != '']
 
 unique_countries = df_countries.unique()
 countries_string = ', '.join(unique_countries)
-print('Countries :' + countries_string)
+# print('Countries :' + countries_string)
 
 # Extract a string of the genres available
 df['listed_in'] = df['listed_in'].astype(str)
@@ -45,4 +46,25 @@ df_genres = df_genres.str.strip()
 
 unique_genres = df_genres.unique()
 genres_string = ', '.join(unique_genres)
-print('Genres: ' + genres_string)
+# print('Genres: ' + genres_string)
+
+# Merge duplicates
+
+df_sorted = df.sort_values(by=['title', 'release_year'])
+grouped = df_sorted.groupby(['title', 'release_year'])
+
+consolidation_rules = {
+    'show_id': 'last',
+    'platform': lambda x: ', '.join(x),
+    'type': 'last',
+    'director': 'last',
+    'cast': 'last',
+    'date_added': 'last',
+    'rating': 'last',
+    'duration': 'last',
+    'listed_in': lambda x: ', '.join(x),
+    'description': 'last'
+}
+
+df_merged = grouped.agg(consolidation_rules).reset_index()
+df_merged.info()
