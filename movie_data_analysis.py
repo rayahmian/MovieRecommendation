@@ -32,7 +32,6 @@ df1['country'] = df1['country'].astype(str)
 df_countries = df1['country'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
 df_countries = df_countries.str.strip()
 df_countries = df_countries[df_countries != '']
-
 unique_countries = df_countries.unique()
 countries_string = ', '.join(unique_countries)
 # print('Countries :' + countries_string)
@@ -41,7 +40,6 @@ countries_string = ', '.join(unique_countries)
 df1['listed_in'] = df1['listed_in'].astype(str)
 df_genres = df1['listed_in'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
 df_genres = df_genres.str.strip()
-
 unique_genres = df_genres.unique()
 genres_string = ', '.join(unique_genres)
 # print('Genres: ' + genres_string)
