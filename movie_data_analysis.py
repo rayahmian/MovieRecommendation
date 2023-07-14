@@ -1,7 +1,6 @@
 import pandas as pd
-import numpy as np
 
-# Initialize the data
+# INITIALIZE THE DATA
 adf = pd.read_csv('amazonprime_data.csv')
 ddf = pd.read_csv('disneyplus_data.csv')
 hdf = pd.read_csv('hulu_data.csv')
@@ -9,8 +8,7 @@ ndf = pd.read_csv('netflix_data.csv')
 
 pd.set_option('display.max_rows', None)
 
-# Clean the data
-
+# CLEAN THE DATA
 # Add the "platform" column to each DataFrame
 adf['platform'] = 'Amazon Prime'
 ddf['platform'] = 'Disney Plus'
@@ -48,8 +46,7 @@ unique_genres = df_genres.unique()
 genres_string = ', '.join(unique_genres)
 # print('Genres: ' + genres_string)
 
-# Merge duplicates
-
+# MERGE DUPLICATES
 # Count the number of duplicates
 columns_to_check = ['title', 'release_year']
 num_duplicates = df1.duplicated(subset=columns_to_check).sum()
