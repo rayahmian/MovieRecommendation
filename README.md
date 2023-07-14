@@ -1,4 +1,4 @@
-# Movie Recommendation
+# Movie Recommendation System
 
 A movie recommendation system designed to leverage a diverse range of movie
 datasets extracted from prominent streaming platforms, including Netflix, Amazon
