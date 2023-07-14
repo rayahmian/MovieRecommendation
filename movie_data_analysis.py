@@ -25,8 +25,8 @@ ndf['show_id'] = 'N' + ndf['show_id'].str[1:]
 
 # Create a consolidated dataset using all 4 datasets
 df1 = pd.concat([adf, ddf, hdf, ndf], ignore_index=True)
-df1 = df1[['show_id', 'platform', 'type', 'title', 'director', 'cast', 'country', 'date_added', 'release_year', 'rating',
-        'duration', 'listed_in', 'description']]
+df1 = df1[['show_id', 'platform', 'type', 'title', 'director', 'cast', 'country', 'date_added', 'release_year',
+           'rating', 'duration', 'listed_in', 'description']]
 df1.info()
 
 # Extract a string of countries movies were made in
