@@ -24,14 +24,14 @@ hdf['show_id'] = 'H' + hdf['show_id'].str[1:]
 ndf['show_id'] = 'N' + ndf['show_id'].str[1:]
 
 # Create a consolidated dataset using all 4 datasets
-df = pd.concat([adf, ddf, hdf, ndf], ignore_index=True)
-df = df[['show_id', 'platform', 'type', 'title', 'director', 'cast', 'country', 'date_added', 'release_year', 'rating',
+df1 = pd.concat([adf, ddf, hdf, ndf], ignore_index=True)
+df1 = df1[['show_id', 'platform', 'type', 'title', 'director', 'cast', 'country', 'date_added', 'release_year', 'rating',
         'duration', 'listed_in', 'description']]
-df.info()
+df1.info()
 
 # Extract a string of countries movies were made in
-df['country'] = df['country'].astype(str)
-df_countries = df['country'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
+df1['country'] = df1['country'].astype(str)
+df_countries = df1['country'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
 df_countries = df_countries.str.strip()
 df_countries = df_countries[df_countries != '']
 
@@ -40,8 +40,8 @@ countries_string = ', '.join(unique_countries)
 # print('Countries :' + countries_string)
 
 # Extract a string of the genres available
-df['listed_in'] = df['listed_in'].astype(str)
-df_genres = df['listed_in'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
+df1['listed_in'] = df1['listed_in'].astype(str)
+df_genres = df1['listed_in'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
 df_genres = df_genres.str.strip()
 
 unique_genres = df_genres.unique()
@@ -50,7 +50,13 @@ genres_string = ', '.join(unique_genres)
 
 # Merge duplicates
 
-df_sorted = df.sort_values(by=['title', 'release_year'])
+# Count the number of duplicates
+columns_to_check = ['title', 'release_year']
+num_duplicates = df1.duplicated(subset=columns_to_check).sum()
+print("Number of duplicates:", num_duplicates)
+
+# Sort and find duplicates
+df_sorted = df1.sort_values(by=['title', 'release_year'])
 grouped = df_sorted.groupby(['title', 'release_year'])
 
 consolidation_rules = {
@@ -63,8 +69,7 @@ consolidation_rules = {
     'rating': 'last',
     'duration': 'last',
     'listed_in': lambda x: ', '.join(x),
-    'description': 'last'
-}
+    'description': 'last'}
 
-df_merged = grouped.agg(consolidation_rules).reset_index()
-df_merged.info()
+df = grouped.agg(consolidation_rules).reset_index()
+df.info()
