@@ -67,7 +67,8 @@ consolidation_rules = {
     'description': 'last'}
 
 df = grouped.agg(consolidation_rules).reset_index()
-df.info()
+# df.info()
+print(df.head())
 
 # EXPORT
 # Save the consolidated dataset to a CSV file
