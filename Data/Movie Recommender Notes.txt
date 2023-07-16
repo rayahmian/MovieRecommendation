@@ -44,5 +44,5 @@
 - Use Django's built-in testing framework to write tests for your views and models.
 - Test the app with various scenarios to ensure it functions correctly.
 
-13. Deploy the app (optional):
+13. Deploy the app:
 - If you want to make the app accessible online, consider deploying it on a web hosting platform like Heroku or AWS.
