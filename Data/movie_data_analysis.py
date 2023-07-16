@@ -25,7 +25,7 @@ ndf['show_id'] = 'N' + ndf['show_id'].str[1:]
 df1 = pd.concat([adf, ddf, hdf, ndf], ignore_index=True)
 df1 = df1[['show_id', 'platform', 'type', 'title', 'director', 'cast', 'country', 'date_added', 'release_year',
            'rating', 'duration', 'listed_in', 'description']]
-df1.info()
+# df1.info()
 
 # Extract a string of countries movies were made in
 df1['country'] = df1['country'].astype(str)
@@ -68,3 +68,6 @@ consolidation_rules = {
 
 df = grouped.agg(consolidation_rules).reset_index()
 df.info()
+
+# Save the consolidated dataset to a CSV file
+df.to_csv('movies_data.csv', index=False)
