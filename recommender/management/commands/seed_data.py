@@ -7,6 +7,10 @@ class Command(BaseCommand):
     help = 'Seed the database with movie data from CSV'
 
     def handle(self, *args, **options):
+        # Delete all existing records
+        Movie.objects.all().delete()
+
+        # Seed the new data
         df = pd.read_csv('movies_data.csv')
 
         for _, row in df.iterrows():
