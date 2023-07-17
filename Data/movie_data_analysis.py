@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 # INITIALIZE THE DATA
 adf = pd.read_csv('amazonprime_data.csv')
@@ -67,8 +68,11 @@ consolidation_rules = {
     'description': 'last'}
 
 df = grouped.agg(consolidation_rules).reset_index()
+
+# Replace fields that have strings "nan" with a np.nan value
+df.replace("nan", np.nan, inplace=True)
 df.info()
 
 # EXPORT
 # Save the consolidated dataset to a CSV file
-# df.to_csv('movies_data.csv', index=False)
+df.to_csv('movies_data.csv', index=False)
