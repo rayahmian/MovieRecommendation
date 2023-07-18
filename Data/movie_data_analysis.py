@@ -76,4 +76,4 @@ df.info()
 
 # EXPORT
 # Save the consolidated dataset to a CSV file
-# df.to_csv('movies_data.csv', index=False)
+df.to_csv('movies_data.csv', index=False)

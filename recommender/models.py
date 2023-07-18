@@ -8,6 +8,7 @@ class Movie(models.Model):
     type = models.CharField(max_length=10)
     director = models.CharField(max_length=100, null=True, blank=True)
     cast = models.CharField(max_length=200, null=True, blank=True)
+    country = models.CharField(max_length=200, null=True, blank=True)
     rating = models.CharField(max_length=50, null=True, blank=True)
     duration = models.CharField(max_length=50, null=True, blank=True)
     genre = models.CharField(max_length=400)
