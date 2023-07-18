@@ -26,7 +26,7 @@ ndf['show_id'] = 'N' + ndf['show_id'].str[1:]
 df1 = pd.concat([adf, ddf, hdf, ndf], ignore_index=True)
 df1 = df1[['show_id', 'platform', 'type', 'title', 'director', 'cast', 'country', 'date_added', 'release_year',
            'rating', 'duration', 'listed_in', 'description']]
-# df1.info()
+df1.info()
 
 # Extract a string of countries movies were made in
 df1['country'] = df1['country'].astype(str)
@@ -60,6 +60,7 @@ consolidation_rules = {
     'platform': lambda x: ', '.join(x),
     'type': 'last',
     'director': 'last',
+    'country': 'last',
     'cast': 'last',
     'date_added': 'last',
     'rating': 'last',
