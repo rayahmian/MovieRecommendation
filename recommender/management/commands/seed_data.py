@@ -14,17 +14,28 @@ class Command(BaseCommand):
         df = pd.read_csv('movies_data.csv')
 
         for _, row in df.iterrows():
+            title = row['title']
+            year = row['release_year']
+            platform = row['platform']
+            type = row['type']
+            director = row['director'] if not pd.isna(row['director']) else None
+            cast = row['cast'] if not pd.isna(row['cast']) else None
+            rating = row['rating'] if not pd.isna(row['rating']) else None
+            duration = row['duration'] if not pd.isna(row['duration']) else None
+            genre = row['listed_in']
+            description = row['description'] if not pd.isna(row['description']) else None
+
             movie = Movie(
-                title=row['title'],
-                year=row['release_year'],
-                platform=row['platform'],
-                type=row['type'],
-                director=row['director'],
-                cast=row['cast'],
-                rating=row['rating'],
-                duration=row['duration'],
-                genre=row['listed_in'],
-                description=row['description']
+                title=title,
+                year=year,
+                platform=platform,
+                type=type,
+                director=director,
+                cast=cast,
+                rating=rating,
+                duration=duration,
+                genre=genre,
+                description=description,
             )
             movie.save()
 
