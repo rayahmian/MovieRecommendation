@@ -1,15 +1,6 @@
 import pandas as pd
 import numpy as np
 
-
-def map_genres(genre):
-    for key, values in genre_mapping.items():
-        for value in values:
-            if value in genre:
-                genre = genre.replace(value, key)
-    return genre
-
-
 # INITIALIZE THE DATA
 adf = pd.read_csv('amazonprime_data.csv')
 ddf = pd.read_csv('disneyplus_data.csv')
@@ -17,6 +8,7 @@ hdf = pd.read_csv('hulu_data.csv')
 ndf = pd.read_csv('netflix_data.csv')
 
 pd.set_option('display.max_rows', None)
+
 
 # CLEAN THE DATA
 # Add the "platform" column to each DataFrame
@@ -31,7 +23,6 @@ ddf['show_id'] = 'DP' + ddf['show_id'].str[1:]
 hdf['show_id'] = 'H' + hdf['show_id'].str[1:]
 ndf['show_id'] = 'N' + ndf['show_id'].str[1:]
 
-
 # Create a consolidated dataset using all 4 datasets
 df1 = pd.concat([adf, ddf, hdf, ndf], ignore_index=True)
 df1 = df1[['show_id', 'platform', 'type', 'title', 'director', 'cast', 'country', 'date_added', 'release_year',
@@ -40,6 +31,7 @@ df1 = df1[['show_id', 'platform', 'type', 'title', 'director', 'cast', 'country'
 # Rename the "listed_in" column to "genre"
 df1.rename(columns={'listed_in': 'genre'}, inplace=True)
 # df1.info()
+
 
 # EXPLORATORY DATA ANALYSIS
 # Extract a string of countries movies were made in
@@ -57,7 +49,8 @@ df_genres = df1['genre'].str.split(',', expand=True).stack().reset_index(level=1
 df_genres = df_genres.str.strip()
 unique_genres = df_genres.unique()
 genres_string = ', '.join(unique_genres)
-# print('Genres: ' + genres_string)
+print('Genres: ' + genres_string)
+
 
 # CLEAN CONSOLIDATED DATASET
 # Sort and find duplicates
@@ -86,12 +79,7 @@ df = grouped.agg(consolidation_rules).reset_index()
 # Replace fields that have strings "nan" with a np.nan value
 df.replace("nan", np.nan, inplace=True)
 
-# EXPORT
-# Save the consolidated dataset to a CSV file
-# df.to_csv('movies_data.csv', index=False)
-# df.info()
-
-# Clean the genre column by grouping
+# Remove redundant values in the genre column
 genre_mapping = {
     "International": ["International", "International TV Shows", "International Movies"],
     "Spanish": ["Spanish-Language TV Shows", "Latino"],
@@ -130,11 +118,3 @@ genre_mapping = {
 
 df['genre'] = df['genre'].apply(map_genres)
 # print(df.loc[15283, 'genre'])
-
-# Extract a string of the genres available
-df['genre'] = df['genre'].astype(str)
-df_genres = df['genre'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
-df_genres = df_genres.str.strip()
-unique_genres = df_genres.unique()
-genres_string = ', '.join(unique_genres)
-print('Genres: ' + genres_string)
