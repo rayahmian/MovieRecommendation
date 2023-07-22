@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from genre_dict import genre_mapping
 
 # INITIALIZE THE DATA
 adf = pd.read_csv('amazonprime_data.csv')
@@ -8,6 +9,7 @@ hdf = pd.read_csv('hulu_data.csv')
 ndf = pd.read_csv('netflix_data.csv')
 
 pd.set_option('display.max_rows', None)
+pd.set_option('display.max_colwidth', None)
 
 
 # CLEAN THE DATA
@@ -43,13 +45,13 @@ unique_countries = df_countries.unique()
 countries_string = ', '.join(unique_countries)
 # print('Countries :' + countries_string)
 
-# Extract a string of the genres available
-df1['genre'] = df1['genre'].astype(str)
-df_genres = df1['genre'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
-df_genres = df_genres.str.strip()
-unique_genres = df_genres.unique()
-genres_string = ', '.join(unique_genres)
-# print('Genres: ' + genres_string)
+# # Extract a string of the genres available
+# df1['genre'] = df1['genre'].astype(str)
+# df_genres = df1['genre'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
+# df_genres = df_genres.str.strip()
+# unique_genres = df_genres.unique()
+# genres_string = ', '.join(unique_genres)
+# # print('Genres: ' + genres_string)
 
 
 # CLEAN CONSOLIDATED DATASET
@@ -79,5 +81,11 @@ df = grouped.agg(consolidation_rules).reset_index()
 # Replace fields that have strings "nan" with a np.nan value
 df.replace("nan", np.nan, inplace=True)
 
-# Remove redundant values in the genre column
+# Remove redundant values in the genre column using genre_dict
+df['genre'] = df['genre'].str.replace(', '.join(genre_mapping.keys()),
+                                      lambda x: genre_mapping[x.group()], regex=True)
 
+random_row = df.sample(n=1)[['title', 'genre']]
+print(random_row)
+unique_genres = df['genre'].unique()
+print(unique_genres)
