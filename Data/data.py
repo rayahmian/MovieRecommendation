@@ -49,7 +49,7 @@ df_genres = df1['genre'].str.split(',', expand=True).stack().reset_index(level=1
 df_genres = df_genres.str.strip()
 unique_genres = df_genres.unique()
 genres_string = ', '.join(unique_genres)
-print('Genres: ' + genres_string)
+# print('Genres: ' + genres_string)
 
 
 # CLEAN CONSOLIDATED DATASET
@@ -80,41 +80,4 @@ df = grouped.agg(consolidation_rules).reset_index()
 df.replace("nan", np.nan, inplace=True)
 
 # Remove redundant values in the genre column
-genre_mapping = {
-    "International": ["International", "International TV Shows", "International Movies"],
-    "Spanish": ["Spanish-Language TV Shows", "Latino"],
-    "British": ["British TV Shows"],
-    "Korean": ["Korean TV Shows"],
-    "Children & Family": ["Kids", "Children & Family Movies", "Kids' TV", "Family"],
-    "Animation": ["Animation", "Adult Animation", "Cartoons"],
-    "Documentary": ["Documentary", "Docuseries", "Documentaries"],
-    "Science & Nature": ["Animals & Nature", "Science & Nature TV", "Science & Technology", "Special Interest"],
-    "Anime": ["Anime", "Anime Features", "Anime Series"],
-    "Sports": ["Sports", "Sports Movies"],
-    "Teen & Young Adult": ["Teen TV Shows", "Young Adult Audience", "Coming of Age", "Teen"],
-    "History": ["History", "Historical"],
-    "Action & Adventure": ["Action", "Action-Adventure", "TV Action & Adventure", "Action & Adventure", "Adventure",
-                           "Survival"],
-    "Horror": ["TV Horror", "Horror", "Horror Movies"],
-    "Science Fiction & Fantasy": ["Science Fiction", "TV Sci-Fi & Fantasy", "Fantasy", "Sci-Fi & Fantasy"],
-    "Mystery": ["Mystery", "TV Mysteries"],
-    "Romantic": ["Romance", "Romantic Movies", "Romantic TV Shows"],
-    "Crime": ["Crime TV Shows", "Crime"],
-    "Drama": ["TV Dramas", "Dramas", "Drama", "Soap Opera / Melodrama"],
-    "Musicals": ["Musical", "Music & Musicals"],
-    "Thriller": ["Thriller", "Thrillers", "TV Thrillers", "Suspense"],
-    "Classic & Cult": ["Classic & Cult TV", "Classic Movies", "Cult Movies", "Classics"],
-    "Arts & Lifestyle": ["Arts, Entertainment, and Culture", "Concert Film", "Music Videos and Concerts",
-                         "Lifestyle & Culture", "Lifestyle", "Music", "Dance", "Travel"],
-    "Faith & Spirituality": ["Faith & Spirituality", "Faith and Spirituality"],
-    "LGBTQ+": ["LGBTQ", "LGBTQ+", "LGBTQ Movies"],
-    "Health & Wellness": ["Fitness", "Health & Wellness"],
-    "Game Show": ['Game Show / Competition', "Game Shows"],
-    "Reality TV": ["Reality TV", "Unscripted", "Reality"],
-    "Talk Show & Variety": ["Show and Variety", "Talk Show and Variety", "Talk Show", "Variety", "Late Night"],
-    "Comedy": ["Comedy", "Parody", "TV Comedies", "Sitcom"],
-    "Stand-Up": ["Stand-Up Comedy & Talk Shows", "Stand Up", "Sketch Comedy", "Stand-Up Comedy"]
-}
 
-df['genre'] = df['genre'].apply(map_genres)
-# print(df.loc[15283, 'genre'])
