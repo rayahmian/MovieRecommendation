@@ -46,3 +46,104 @@
 
 13. Deploy the app:
 - If you want to make the app accessible online, consider deploying it on a web hosting platform like Heroku or AWS.
+
+----------------------------------------------------------
+
+TV Shows, Movies, Series, 
+
+International, International TV Shows, International Movies
+British TV Shows,
+Spanish-Language TV Shows, Latino,
+Korean TV Shows,
+Black Stories,  
+Kids, Children & Family Movies, Kids' TV, Family, 
+Animation, Adult Animation, Cartoons, 
+Documentary, Docuseries, Documentaries, 
+Animals & Nature, Science & Nature TV, Science & Technology, Special Interest 
+Anime, Anime Features, Anime Series, 
+Sports Movies, Sports, 
+Teen TV Shows, Young Adult Audience, Coming of Age, Teen,
+Historical, History, 
+Military and War, 
+Western
+Arthouse
+Biographical
+Superhero, 
+Anthology,
+Medical
+Spy/Espionage,
+Buddy
+Romantic Comedy
+Police/Cop
+Disaster
+Cooking & Food
+News
+Independent Movies
+Action, Action-Adventure, TV Action & Adventure, Action & Adventure, Adventure, Survival 
+TV Horror, Horror, Horror Movies 
+Science Fiction, TV Sci-Fi & Fantasy, Fantasy, Sci-Fi & Fantasy
+Mystery, TV Mysteries
+Romance, Romantic Movies, Romantic TV Shows
+Crime TV Shows, Crime
+TV Dramas, Dramas, Drama, Soap Opera / Melodrama
+Musical, Music & Musicals
+Thriller, Thrillers, TV Thrillers, Suspense
+Classic & Cult TV, Classic Movies, Cult Movies, Classics 
+"Arts, Entertainment, and Culture," Concert Film, Music Videos and Concerts, Lifestyle & Culture, Lifestyle, Music, Dance, Travel
+Faith and Spirituality, Faith & Spirituality, 
+LGBTQ, LGBTQ+, LGBTQ Movies
+Fitness, Health & Wellness,
+Game Show / Competition, Game Shows, 
+Reality TV, Unscripted, Reality,
+Show and Variety, Talk Show and Variety, Talk Show, Variety, Late Night,
+Comedy, Parody, TV Comedies, Comedies, Sitcom, 
+Stand-Up Comedy & Talk Shows, Stand Up, Sketch Comedy, Stand-Up Comedy, 
+
+New List:
+International
+British
+Spanish
+Korean
+Black Stories
+Children & Family
+Animation
+Documentary
+Science & Nature
+Anime
+Sports
+Teen & Young Adult
+History
+Military & War
+Western
+Arthouse
+Biographical
+Superhero
+Anthology
+Medical
+Spy/Espionage
+Buddy
+Romantic Comedy
+Police/Cop
+Disaster
+Cooking & Food
+News
+Independent Movies
+Action & Adventure
+Horror
+Science Fiction & Fantasy
+Mystery
+Romantic
+Crime
+Drama
+Musicals
+Thriller
+Classic & Cult
+Arts & Lifestyle
+Faith & Spirtuality
+LGBTQ+
+Health & Wellness
+Game Shows
+Reality TV
+Talk Show & Variety
+Comedy
+Stand-Up
