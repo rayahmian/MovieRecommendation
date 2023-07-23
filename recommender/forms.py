@@ -19,19 +19,21 @@ class MoviePreferencesForm(forms.Form):
         self.fields['country'].choices = self.get_country_choices()
 
     def get_genre_choices(self):
-        # Replace 'df' with your DataFrame containing the genre data
-        # Assuming the genre column in your DataFrame is 'genre'
-        genres = df['genre'].unique()
-        return [(genre, genre) for genre in genres]
+        genre_concatenated = ','.join(df['genre'].dropna())
+        all_genres = genre_concatenated.split(',')
+        unique_genres = list(set(all_genres))
+        # Create a list of tuples
+        choices = [(genre, genre) for genre in unique_genres]
+        return choices
 
     def get_release_year_choices(self):
-        # Replace 'df' with your DataFrame containing the release_year data
-        # Assuming the release_year column in your DataFrame is 'release_year'
         release_years = df['release_year'].unique()
         return [(year, year) for year in release_years]
 
     def get_country_choices(self):
-        # Replace 'df' with your DataFrame containing the country data
-        # Assuming the country column in your DataFrame is 'country'
+        country_concatenated = ','.join(df['country'].dropna())
+        all_countries = country_concatenated.split(',')
+        unique_countries = list(set(all_countries))
+        # Create a list of tuples
         countries = df['country'].unique()
         return [(country, country) for country in countries]
