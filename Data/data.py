@@ -92,4 +92,4 @@ random_row = df.sample(n=1)[['title', 'genre']]
 print(random_row)
 
 # EXPORT DF TO CSV
-df.to_csv('movie_data.csv', index=False)
+# df.to_csv('movie_data.csv', index=False)
