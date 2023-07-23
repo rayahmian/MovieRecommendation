@@ -96,7 +96,7 @@ genre_mapping = {
     'Crime': 'Crime',
     'Drama': 'Drama',
     'LGBTQ': 'LGBTQ+',
-    'Music': 'Musicals',
+    'Music': 'Arts & Lifestyle',
     'Kids': 'Children & Family',
     'Teen': 'Teen & Young Adult',
 }
