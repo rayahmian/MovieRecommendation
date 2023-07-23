@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from genre_dict import genre_mapping
+import re
 
 # INITIALIZE THE DATA
 adf = pd.read_csv('amazonprime_data.csv')
@@ -81,11 +82,14 @@ df = grouped.agg(consolidation_rules).reset_index()
 # Replace fields that have strings "nan" with a np.nan value
 df.replace("nan", np.nan, inplace=True)
 
-# Remove redundant values in the genre column using genre_dict
-df['genre'] = df['genre'].str.replace(', '.join(genre_mapping.keys()),
-                                      lambda x: genre_mapping[x.group()], regex=True)
+# # Remove redundant values in the genre column using genre_dict
+# # Use re.sub to perform the replacements based on the genre_mapping dictionary
+# for key, value in genre_mapping.items():
+#     df['genre'] = df['genre'].str.replace(key, value + ', ', regex=True)
+# df['genre'] = df['genre'].str.rstrip(', ')
 
+df['genre'] = df['genre'].replace(genre_mapping, regex=True)
+
+# Print a random row
 random_row = df.sample(n=1)[['title', 'genre']]
 print(random_row)
-unique_genres = df['genre'].unique()
-print(unique_genres)
