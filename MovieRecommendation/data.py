@@ -10,10 +10,10 @@ def remove_duplicate_genres(genre_string):
 
 
 # INITIALIZE THE DATA
-adf = pd.read_csv('Data/amazonprime_data.csv')
-ddf = pd.read_csv('Data/disneyplus_data.csv')
-hdf = pd.read_csv('Data/hulu_data.csv')
-ndf = pd.read_csv('Data/netflix_data.csv')
+adf = pd.read_csv('../Data/amazonprime_data.csv')
+ddf = pd.read_csv('../Data/disneyplus_data.csv')
+hdf = pd.read_csv('../Data/hulu_data.csv')
+ndf = pd.read_csv('../Data/netflix_data.csv')
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_colwidth', None)
