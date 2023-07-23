@@ -2,6 +2,13 @@ import pandas as pd
 import numpy as np
 from genre_dict import genre_mapping
 
+
+def remove_duplicate_genres(genre_string):
+    g = genre_string.split(', ')
+    ug = sorted(set(g), key=g.index)
+    return ', '.join(ug)
+
+
 # INITIALIZE THE DATA
 adf = pd.read_csv('amazonprime_data.csv')
 ddf = pd.read_csv('disneyplus_data.csv')
@@ -86,10 +93,7 @@ for index, row in df.iterrows():
     genres = row['genre'].split(', ')
     new_genres = [genre_mapping[genre] if genre in genre_mapping else genre for genre in genres]
     df.at[index, 'genre'] = ', '.join(new_genres)
-
-# Print a random row
-random_row = df.sample(n=1)[['title', 'genre']]
-print(random_row)
+df['genre'] = df['genre'].apply(remove_duplicate_genres)
 
 # EXPORT DF TO CSV
-# df.to_csv('movie_data.csv', index=False)
+df.to_csv('movie_data.csv', index=False)
