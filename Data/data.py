@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from genre_dict import genre_mapping
-import re
 
 # INITIALIZE THE DATA
 adf = pd.read_csv('amazonprime_data.csv')
@@ -46,13 +45,13 @@ unique_countries = df_countries.unique()
 countries_string = ', '.join(unique_countries)
 # print('Countries :' + countries_string)
 
-# # Extract a string of the genres available
-# df1['genre'] = df1['genre'].astype(str)
-# df_genres = df1['genre'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
-# df_genres = df_genres.str.strip()
-# unique_genres = df_genres.unique()
-# genres_string = ', '.join(unique_genres)
-# # print('Genres: ' + genres_string)
+# Extract a string of the genres available
+df1['genre'] = df1['genre'].astype(str)
+df_genres = df1['genre'].str.split(',', expand=True).stack().reset_index(level=1, drop=True)
+df_genres = df_genres.str.strip()
+unique_genres = df_genres.unique()
+genres_string = ', '.join(unique_genres)
+# print('Genres: ' + genres_string)
 
 
 # CLEAN CONSOLIDATED DATASET
@@ -82,14 +81,15 @@ df = grouped.agg(consolidation_rules).reset_index()
 # Replace fields that have strings "nan" with a np.nan value
 df.replace("nan", np.nan, inplace=True)
 
-# # Remove redundant values in the genre column using genre_dict
-# # Use re.sub to perform the replacements based on the genre_mapping dictionary
-# for key, value in genre_mapping.items():
-#     df['genre'] = df['genre'].str.replace(key, value + ', ', regex=True)
-# df['genre'] = df['genre'].str.rstrip(', ')
-
-df['genre'] = df['genre'].replace(genre_mapping, regex=True)
+# Remove redundant values in the genre column using genre_mapping
+for index, row in df.iterrows():
+    genres = row['genre'].split(', ')
+    new_genres = [genre_mapping[genre] if genre in genre_mapping else genre for genre in genres]
+    df.at[index, 'genre'] = ', '.join(new_genres)
 
 # Print a random row
 random_row = df.sample(n=1)[['title', 'genre']]
 print(random_row)
+
+# EXPORT DF TO CSV
+df.to_csv('movie_data.csv', index=False)
