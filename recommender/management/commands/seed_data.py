@@ -23,7 +23,7 @@ class Command(BaseCommand):
             country = row['country'] if not pd.isna(row['country']) else None
             rating = row['rating'] if not pd.isna(row['rating']) else None
             duration = row['duration'] if not pd.isna(row['duration']) else None
-            genre = row['listed_in']
+            genre = row['genre']
             description = row['description'] if not pd.isna(row['description']) else None
 
             movie = Movie(
