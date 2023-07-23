@@ -95,5 +95,6 @@ for index, row in df.iterrows():
     df.at[index, 'genre'] = ', '.join(new_genres)
 df['genre'] = df['genre'].apply(remove_duplicate_genres)
 
+
 # EXPORT DF TO CSV
-df.to_csv('movie_data.csv', index=False)
+df.to_csv('movies_data.csv', index=False)
