@@ -1,5 +1,5 @@
 from django import forms
-from MovieRecommendation.data import df
+from Data.data import df
 
 
 class MoviePreferencesForm(forms.Form):
