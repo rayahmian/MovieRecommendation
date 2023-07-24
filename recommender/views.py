@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import pandas as pd
 from .models import Movie
 from .forms import MoviePreferencesForm
 from Data.data import df
@@ -17,6 +18,21 @@ def movie_detail(request, movie_id):
 
 
 def recommend_movies(request):
+    genre_choices = set()
+    country_choices = set()
+
+    df['genre'] = df['genre'].astype(str)
+
+    for genres in df['genre']:
+        genre_choices.update(genre.strip() for genre in genres.split(','))
+    for countries in df['country']:
+        if not isinstance(countries, float) and not pd.isna(countries):
+            country_choices.update(country.strip() for country in countries.split(','))
+
+    genre_choices = sorted(list(genre_choices))
+    country_choices = sorted(list(country_choices))
+    release_year_choices = df['release_year'].unique()
+
     if request.method == 'POST':
         form = MoviePreferencesForm(request.POST)
         if form.is_valid():
@@ -51,9 +67,17 @@ def recommend_movies(request):
                 'user_type': user_type,
                 'user_genre': user_genre,
                 'user_release_year': user_release_year,
-                'user_country': user_country
+                'user_country': user_country,
+                'genre_choices': genre_choices,
+                'release_year_choices': release_year_choices,
+                'country_choices': country_choices
             })
     else:
         form = MoviePreferencesForm()
 
-    return render(request, 'movie_preferences.html', {'form': form})
+    return render(request, 'movie_preferences.html', {
+        'form': form,
+        'genre_choices': genre_choices,
+        'release_year_choices': release_year_choices,
+        'country_choices': country_choices
+    })
