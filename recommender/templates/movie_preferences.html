@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommender</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #BA3B46;
+        }
+        .form-control {
+            background-color: #333;
+            color: #fff;
+            border: 2px solid #444;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .form-control:focus {
+            background-color: #444;
+            border-color: #BA3B46;
+            color: #fff;
+            box-shadow: none;
+        }
+        .btn-primary {
+            background-color: #BA3B46;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn-primary:hover {
+            background-color: #d63031;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 form-container">
+        <h1>Movie Recommender</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_type">Type:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="type" id="id_movie" value="Movie" {% if user_type == "Movie" %}checked{% endif %}>
+                    <label class="form-check-label" for="id_movie">Movie</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="type" id="id_tv_show" value="TV Show" {% if user_type == "TV Show" %}checked{% endif %}>
+                    <label class="form-check-label" for="id_tv_show">TV Show</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_genre">Genre:</label>
+                <select class="form-control" name="genre" multiple>
+                    {% for genre in genre_choices %}
+                    <option value="{{ genre }}" {% if genre in user_genre %}selected{% endif %}>{{ genre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_release_year">Release Year:</label>
+                <select class="form-control" name="release_year" multiple>
+                    {% for year in release_year_choices %}
+                    <option value="{{ year }}" {% if year == user_release_year %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_country">Country:</label>
+                <select class="form-control" name="country" multiple>
+                    {% for country in country_choices %}
+                    <option value="{{ country }}" {% if country == user_country %}selected{% endif %}>{{ country }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

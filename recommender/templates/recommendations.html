@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommendations</title>
+</head>
+<body>
+    <h1>Movie Recommendations</h1>
+    {% if user_type %}
+        <p><strong>Type:</strong> {{ user_type }}</p>
+    {% endif %}
+    {% if user_genre %}
+        <p><strong>Genre:</strong> {{ user_genre }}</p>
+    {% endif %}
+    {% if user_release_year %}
+        <p><strong>Release Year:</strong> {{ user_release_year }}</p>
+    {% endif %}
+    {% if user_country %}
+        <p><strong>Country:</strong> {{ user_country }}</p>
+    {% endif %}
+    <ul>
+        {% for recommendation in recommendations %}
+            <li>{{ recommendation.title }} - {{ recommendation.genre }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
