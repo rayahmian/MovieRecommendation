@@ -52,6 +52,7 @@ genre_mapping = {
     'Cult Movies': 'Classic & Cult',
     'TV Comedies': 'Comedy',
     'Documentary': 'Documentary',
+    'and Culture': 'Arts & Lifestyle',
     'Docuseries': 'Documentary',
     'Game Shows': 'Game Show',
     'Historical': 'History',
