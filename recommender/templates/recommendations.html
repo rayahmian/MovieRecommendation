@@ -2,25 +2,49 @@
 <html>
 <head>
     <title>Movie Recommendations</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+        }
+        .movie-card {
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .movie-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #BA3B46;
+        }
+        .movie-genre {
+            color: #ddd;
+        }
+    </style>
 </head>
 <body>
-    <h1>Movie Recommendations</h1>
-    {% if user_type %}
-        <p><strong>Type:</strong> {{ user_type }}</p>
-    {% endif %}
-    {% if user_genre %}
-        <p><strong>Genre:</strong> {{ user_genre }}</p>
-    {% endif %}
-    {% if user_release_year %}
-        <p><strong>Release Year:</strong> {{ user_release_year }}</p>
-    {% endif %}
-    {% if user_country %}
-        <p><strong>Country:</strong> {{ user_country }}</p>
-    {% endif %}
-    <ul>
-        {% for recommendation in recommendations %}
-            <li>{{ recommendation.title }} - {{ recommendation.genre }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container mt-5">
+        <h1>Your Movie Recommendations</h1>
+        {% if recommendations %}
+            {% for movie in recommendations %}
+                <div class="movie-card">
+                    <div class="movie-title">{{ movie.title }}</div>
+                    <div class="movie-genre">{{ movie.genre }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No movies found matching your preferences.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
