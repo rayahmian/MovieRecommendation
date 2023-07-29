@@ -73,6 +73,7 @@ genre_mapping = {
     'Stand Up': 'Stand-Up',
     'Thriller': 'Thriller',
     'Suspense': 'Thriller',
+    'Comedies': 'Comedy',
     'Fitness': 'Health & Wellness',
     'History': 'History',
     'Musical': 'Musicals',
@@ -100,4 +101,5 @@ genre_mapping = {
     'Music': 'Arts & Lifestyle',
     'Kids': 'Children & Family',
     'Teen': 'Teen & Young Adult',
+    'Arts': 'Arts & Lifestyle',
 }
