@@ -1,20 +1,12 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from urllib.parse import unquote
+import json
 import pandas as pd
 from .models import Movie
 from .forms import MoviePreferencesForm
 from Data.data import df
-
-
-def movie_list(request):
-    # Get all movies from the database
-    movies = Movie.objects.all()
-    return render(request, 'movie_list.html', {'movies': movies})
-
-
-def movie_detail(request, movie_id):
-    # Get the movie with the given ID from the database
-    movie = Movie.objects.get(pk=movie_id)
-    return render(request, 'movie_detail.html', {'movie': movie})
 
 
 def recommend_movies(request):
@@ -43,9 +35,6 @@ def recommend_movies(request):
             user_release_year = form.cleaned_data['release_year']
             user_country = form.cleaned_data['country']
 
-            # DEBUG
-            print(form.cleaned_data)
-
             # Logic to filter movies
             filtered_df = df.copy()
             if user_type:
@@ -67,19 +56,11 @@ def recommend_movies(request):
             num_recommendations = 5
             recommendations = filtered_df.sample(n=num_recommendations)
             recommendation_data = recommendations[['title', 'genre']].to_dict(orient='records')
-            return render(request, 'recommendations.html', {
-                'recommendations': recommendation_data,
-                'user_type': user_type,
-                'user_genre': user_genre,
-                'user_release_year': user_release_year,
-                'user_country': user_country,
-                'genre_choices': genre_choices,
-                'release_year_choices': release_year_choices,
-                'country_choices': country_choices
-            })
-        else:
-            # DEBUG
-            print(form.errors)
+
+            # Convert the recommendation_data to JSON and encode it in the URL
+            encoded_recommendation_data = json.dumps(recommendation_data)
+            return HttpResponseRedirect(reverse('show_recommendations', args=[encoded_recommendation_data]))
+
     else:
         form = MoviePreferencesForm()
 
@@ -89,3 +70,11 @@ def recommend_movies(request):
         'release_year_choices': release_year_choices,
         'country_choices': country_choices
     })
+
+
+def show_recommendations(request, encoded_recommendation_data):
+    # Decode the URL parameter
+    decoded_recommendation_data = unquote(encoded_recommendation_data)
+    recommendation_data = json.loads(decoded_recommendation_data)
+
+    return render(request, 'recommendations.html', {'recommendations': recommendation_data})
