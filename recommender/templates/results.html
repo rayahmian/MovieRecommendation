@@ -27,8 +27,21 @@
             margin-bottom: 10px;
             color: #BA3B46;
         }
-        .movie-genre {
+        .movie-info {
             color: #ddd;
+        }
+        .movie-details {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .movie-description-title {
+            color: #bbb;
+        }
+        .movie-description {
+            margin-top: 10px;
+            color: #ccc;
+            display: inline;
         }
         .go-back-btn {
             margin-top: 20px;
@@ -51,7 +64,17 @@
             {% for movie in recommendations %}
                 <div class="movie-card">
                     <div class="movie-title">{{ movie.title }}</div>
-                    <div class="movie-genre">{{ movie.genre }}</div>
+                    <div class="movie-info">Year: {{ movie.year }}</div>
+                    <div class="movie-info">Platform: {{ movie.platform|default:"N/A" }}</div>
+                    <div class="movie-info">Genre: {{ movie.genre }}</div>
+                    <div class="movie-info">Director: {{ movie.director|default:"N/A" }}</div>
+                    <div class="movie-info">Cast: {{ movie.cast|default:"N/A" }}</div>
+                    <div class="movie-info">Rating: {{ movie.rating|default:"N/A" }}</div>
+                    <div class="movie-info">Duration: {{ movie.duration|default:"N/A" }}</div>
+                    <div class="movie-details">
+                        <span class="movie-description-title"><strong>Description: </strong></span>
+                        <span class="movie-description">{{ movie.description|default:"N/A" }}</span>
+                    </div>
                 </div>
             {% endfor %}
         {% else %}
