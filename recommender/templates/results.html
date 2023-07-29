@@ -37,6 +37,7 @@
         }
         .movie-description-title {
             color: #bbb;
+            font-weight: bold;
         }
         .movie-description {
             margin-top: 10px;
@@ -64,15 +65,15 @@
             {% for movie in recommendations %}
                 <div class="movie-card">
                     <div class="movie-title">{{ movie.title }}</div>
-                    <div class="movie-info">Year: {{ movie.year }}</div>
-                    <div class="movie-info">Platform: {{ movie.platform|default:"N/A" }}</div>
-                    <div class="movie-info">Genre: {{ movie.genre }}</div>
-                    <div class="movie-info">Director: {{ movie.director|default:"N/A" }}</div>
-                    <div class="movie-info">Cast: {{ movie.cast|default:"N/A" }}</div>
-                    <div class="movie-info">Rating: {{ movie.rating|default:"N/A" }}</div>
-                    <div class="movie-info">Duration: {{ movie.duration|default:"N/A" }}</div>
+                    <div class="movie-info"><strong>Year:</strong> {{ movie.year }}</div>
+                    <div class="movie-info"><strong>Platform:</strong> {{ movie.platform|default:"N/A" }}</div>
+                    <div class="movie-info"><strong>Genre:</strong> {{ movie.genre }}</div>
+                    <div class="movie-info"><strong>Rating:</strong> {{ movie.rating|default:"N/A" }}</div>
+                    <div class="movie-info"><strong>Duration:</strong> {{ movie.duration|default:"N/A" }}</div>
+                    <div class="movie-info"><strong>Director:</strong> {{ movie.director|default:"N/A" }}</div>
+                    <div class="movie-info"><strong>Cast:</strong> {{ movie.cast|default:"N/A" }}</div>
                     <div class="movie-details">
-                        <span class="movie-description-title"><strong>Description: </strong></span>
+                        <span class="movie-description-title"><strong>Description:</strong></span>
                         <span class="movie-description">{{ movie.description|default:"N/A" }}</span>
                     </div>
                 </div>
