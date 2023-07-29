@@ -1,39 +1,30 @@
 from django import forms
-from Data.data import df
+from .models import Movie
 
 
 class MoviePreferencesForm(forms.Form):
-    TYPE_CHOICES = (
-        ('TV Show', 'TV Show'),
+    TYPES = [
         ('Movie', 'Movie'),
-    )
-    type = forms.ChoiceField(choices=TYPE_CHOICES, widget=forms.RadioSelect)
-    genre = forms.MultipleChoiceField(choices=[], required=False)
-    release_year = forms.MultipleChoiceField(choices=[], required=False)
-    country = forms.MultipleChoiceField(choices=[], required=False)
+        ('TV Show', 'TV Show')
+    ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['genre'].choices = self.get_genre_choices()
-        self.fields['release_year'].choices = self.get_release_year_choices()
-        self.fields['country'].choices = self.get_country_choices()
+    movies_with_genre = Movie.objects.exclude(genre__isnull=True)
+    GENRES = sorted(set(genre for movie in movies_with_genre for genre in movie.genre.split(', ')))
+    GENRES.remove('TV Shows')
+    genre = forms.MultipleChoiceField(choices=[(genre, genre) for genre in GENRES],
+                                      widget=forms.SelectMultiple(attrs={'class': 'form-control'}), required=False)
 
-    def get_genre_choices(self):
-        genre_concatenated = ','.join(df['genre'].dropna())
-        all_genres = genre_concatenated.split(',')
-        unique_genres = list(set(all_genres))
-        # Create a list of tuples
-        choices = [(genre, genre) for genre in unique_genres]
-        return choices
+    movies_with_release_year = Movie.objects.exclude(year__isnull=True)
+    RELEASE_YEARS = sorted(set(movie.year for movie in movies_with_release_year),
+                           reverse=True)
+    release_year = forms.MultipleChoiceField(choices=[(year, year) for year in RELEASE_YEARS],
+                                             widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
+                                             required=False)
 
-    def get_release_year_choices(self):
-        release_years = df['release_year'].unique()
-        return [(year, year) for year in release_years]
+    movies_with_country = Movie.objects.exclude(country__isnull=True)
+    COUNTRIES = sorted(set(country.strip() for movie in movies_with_country for country in movie.country.split(',')))
+    COUNTRIES = [country for country in COUNTRIES if country]
+    country = forms.MultipleChoiceField(choices=[(country, country) for country in COUNTRIES],
+                                        widget=forms.SelectMultiple(attrs={'class': 'form-control'}), required=False)
 
-    def get_country_choices(self):
-        country_concatenated = ','.join(df['country'].dropna())
-        all_countries = country_concatenated.split(',')
-        unique_countries = list(set(all_countries))
-        # Create a list of tuples
-        countries = df['country'].unique()
-        return [(country, country) for country in countries]
+    type = forms.ChoiceField(choices=TYPES, widget=forms.RadioSelect)
