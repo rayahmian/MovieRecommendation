@@ -1,5 +1,6 @@
 import random
 from django.shortcuts import render
+from django.db.models import Q
 from recommender.forms import MoviePreferencesForm
 from recommender.models import Movie
 
@@ -18,21 +19,29 @@ def generator(request):
             if selected_type:
                 movies = movies.filter(type=selected_type)
             if selected_genres:
-                movies = movies.filter(genre__in=selected_genres)
+                # Use Q object to perform OR operation for genres
+                genre_query = Q()
+                for genre in selected_genres:
+                    genre_query |= Q(genre__contains=genre)
+                movies = movies.filter(genre_query)
             if selected_release_years:
                 movies = movies.filter(year__in=selected_release_years)
             if selected_countries:
-                movies = movies.filter(country__in=selected_countries)
+                # Use Q object to perform OR operation for countries
+                country_query = Q()
+                for country in selected_countries:
+                    country_query |= Q(country__contains=country)
+                movies = movies.filter(country_query)
 
             # Get the total number of available movies in the queryset
             total_movies = movies.count()
 
-            if total_movies <= 5:
+            if total_movies <= 3:
                 # If there are 5 or fewer movies, return all available movies as recommendations
                 recommendations = list(movies)
             else:
                 # Randomly select 5 movies from the filtered queryset
-                recommendations = random.sample(list(movies), 5)
+                recommendations = random.sample(list(movies), 3)
 
             return render(request, 'results.html', {'recommendations': recommendations})
     else:
@@ -50,8 +59,7 @@ def results(request):
         filtered_movies = Movie.objects.filter(genre=genre, year=release_year, country=country)
 
         if filtered_movies.exists():
-            num_recommendations = 5
-            # Number of movie recommendations to display
+            num_recommendations = 3
             recommendations = random.sample(list(filtered_movies), min(num_recommendations, len(filtered_movies)))
             return render(request, 'results.html', {'recommendations': recommendations})
 
