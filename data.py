@@ -101,6 +101,10 @@ for index, row in df.iterrows():
     df.at[index, 'genre'] = ', '.join(new_genres)
 df['genre'] = df['genre'].apply(remove_duplicate_genres)
 
+# Remove TV Shows from df
+df = df[df['type'] == 'Movie']
+
 # EXPORT DF TO CSV
 # df.to_csv('movies_data.csv', index=False)
 # print(df.sample(n=1))
+# df.info()
