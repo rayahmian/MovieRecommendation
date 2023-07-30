@@ -52,19 +52,19 @@
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="{{ form.type.id_for_label }}">Type:</label>
-                {{ form.type }}
+                <label for="{{ form.platform.id_for_label }}"><strong>Platform:</strong></label>
+                {{ form.platform }}
             </div>
             <div class="form-group">
-                <label for="{{ form.genre.id_for_label }}">Genre:</label>
+                <label for="{{ form.genre.id_for_label }}"><strong>Genre:</strong></label>
                 {{ form.genre }}
             </div>
             <div class="form-group">
-                <label for="{{ form.release_year.id_for_label }}">Release Year:</label>
+                <label for="{{ form.release_year.id_for_label }}"><strong>Release Year:</strong></label>
                 {{ form.release_year }}
             </div>
             <div class="form-group">
-                <label for="{{ form.country.id_for_label }}">Country:</label>
+                <label for="{{ form.country.id_for_label }}"><strong>Country:</strong></label>
                 {{ form.country }}
             </div>
             <button type="submit" class="btn btn-primary btn-block">Generate Movies</button>

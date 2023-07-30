@@ -9,17 +9,19 @@ def generator(request):
     if request.method == 'POST':
         form = MoviePreferencesForm(request.POST)
         if form.is_valid():
-            selected_type = form.cleaned_data['type']
+            selected_platforms = form.cleaned_data['platform']
             selected_genres = form.cleaned_data['genre']
             selected_release_years = form.cleaned_data['release_year']
             selected_countries = form.cleaned_data['country']
 
             # Filter movies based on selected attributes
             movies = Movie.objects.all()
-            if selected_type:
-                movies = movies.filter(type=selected_type)
+            if selected_platforms:
+                platform_query = Q()
+                for platform in selected_platforms:
+                    platform_query |= Q(platform__contains=platform)
+                movies = movies.filter(platform_query)
             if selected_genres:
-                # Use Q object to perform OR operation for genres
                 genre_query = Q()
                 for genre in selected_genres:
                     genre_query |= Q(genre__contains=genre)
@@ -27,7 +29,6 @@ def generator(request):
             if selected_release_years:
                 movies = movies.filter(year__in=selected_release_years)
             if selected_countries:
-                # Use Q object to perform OR operation for countries
                 country_query = Q()
                 for country in selected_countries:
                     country_query |= Q(country__contains=country)
@@ -52,11 +53,12 @@ def generator(request):
 
 def results(request):
     if request.method == 'POST':
+        platform = request.POST.get('platform')
         genre = request.POST.get('genre')
         release_year = request.POST.get('release_year')
         country = request.POST.get('country')
 
-        filtered_movies = Movie.objects.filter(genre=genre, year=release_year, country=country)
+        filtered_movies = Movie.objects.filter(platform=platform, genre=genre, year=release_year, country=country)
 
         if filtered_movies.exists():
             num_recommendations = 3
