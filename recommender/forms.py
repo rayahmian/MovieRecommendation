@@ -18,8 +18,7 @@ class MoviePreferencesForm(forms.Form):
 
     # RELEASE YEARS
     movies_with_release_year = Movie.objects.exclude(year__isnull=True)
-    RELEASE_YEARS = sorted(set(movie.year for movie in movies_with_release_year),
-                           reverse=True)
+    RELEASE_YEARS = sorted(set(movie.year for movie in movies_with_release_year), reverse=True)
     release_year = forms.MultipleChoiceField(
         choices=[(year, year) for year in RELEASE_YEARS],
         widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
