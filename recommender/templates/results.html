@@ -82,6 +82,13 @@
             <p>No movies found matching your preferences.</p>
         {% endif %}
         <a href="{% url 'generator' %}" class="btn btn-primary go-back-btn">Go Back</a>
+        <button class="btn btn-primary go-back-btn randomize-btn">Randomize</button>
     </div>
+    <script>
+        const randomizeBtn = document.querySelector(".randomize-btn");
+        randomizeBtn.addEventListener("click", function() {
+            window.location.reload();
+        });
+    </script>
 </body>
 </html>
