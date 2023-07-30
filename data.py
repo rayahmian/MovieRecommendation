@@ -1,4 +1,4 @@
-from Data.genre_dict import genre_mapping
+from genre_dict import genre_mapping
 import pandas as pd
 import numpy as np
 import os
@@ -11,10 +11,10 @@ def remove_duplicate_genres(genre_string):
 
 
 # INITIALIZE THE DATA
-file_pathA = os.path.join(os.path.dirname(__file__), 'amazonprime_data.csv')
-file_pathD = os.path.join(os.path.dirname(__file__), 'disneyplus_data.csv')
-file_pathH = os.path.join(os.path.dirname(__file__), 'hulu_data.csv')
-file_pathN = os.path.join(os.path.dirname(__file__), 'netflix_data.csv')
+file_pathA = os.path.join(os.path.dirname(__file__), 'Data/amazonprime_data.csv')
+file_pathD = os.path.join(os.path.dirname(__file__), 'Data/disneyplus_data.csv')
+file_pathH = os.path.join(os.path.dirname(__file__), 'Data/hulu_data.csv')
+file_pathN = os.path.join(os.path.dirname(__file__), 'Data/netflix_data.csv')
 
 adf = pd.read_csv(file_pathA)
 ddf = pd.read_csv(file_pathD)
