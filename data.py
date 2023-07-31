@@ -1,4 +1,4 @@
-from mapping import genre_mapping
+from mapping import genre_mapping, rating_mapping, rating_mapping2
 import pandas as pd
 import numpy as np
 import os
@@ -11,6 +11,7 @@ def remove_duplicate_genres(genre_string):
 
 
 # INITIALIZE THE DATA
+# Read files
 file_pathA = os.path.join(os.path.dirname(__file__), 'amazonprime_data.csv')
 file_pathD = os.path.join(os.path.dirname(__file__), 'disneyplus_data.csv')
 file_pathH = os.path.join(os.path.dirname(__file__), 'hulu_data.csv')
@@ -20,9 +21,6 @@ adf = pd.read_csv(file_pathA)
 ddf = pd.read_csv(file_pathD)
 hdf = pd.read_csv(file_pathH)
 ndf = pd.read_csv(file_pathN)
-
-pd.set_option('display.max_rows', None)
-pd.set_option('display.max_colwidth', None)
 
 # Add the "platform" column to each DataFrame
 adf['platform'] = 'Amazon Prime'
@@ -75,14 +73,18 @@ column_order = ['title', 'show_id', 'type', 'platform', 'director', 'cast', 'cou
                 'rating', 'duration', 'genre', 'description']
 df = df.reindex(columns=column_order)
 
-# Remove rows with "Seasons" in the duration column
+# Only keep entries that have duration in minutes
 df['duration'] = df['duration'].astype(str)
 df = df[~df['duration'].str.contains('Season')]
 df['duration'] = df['duration'].str.extract('(\d+)').astype(float)
 
-# **************************
+# Format the ratings
+df['rating'] = df['rating'].astype(str)
+df = df[~df['rating'].str.contains('Season')]
+df['rating'] = df['rating'].replace(rating_mapping, regex=True)
+df['rating'] = df['rating'].replace(rating_mapping2)
 
-# Remove redundant values in the genre column using genre_mapping
+# Format genres
 for index, row in df.iterrows():
     genres = row['genre'].split(', ')
     new_genres = [genre_mapping[genre] if genre in genre_mapping else genre for genre in genres]
