@@ -40,11 +40,10 @@ ndf['show_id'] = 'N' + ndf['show_id'].str[1:]
 
 # Create a consolidated dataset using all 4 datasets
 df1 = pd.concat([adf, ddf, hdf, ndf], ignore_index=True)
-df1 = df1[['show_id', 'platform', 'type', 'title', 'director', 'cast', 'country', 'date_added', 'release_year',
-           'rating', 'duration', 'listed_in', 'description']]
-
-# Rename the "listed_in" column to "genre"
 df1.rename(columns={'listed_in': 'genre'}, inplace=True)
+column_order = ['title', 'show_id', 'type', 'platform', 'director', 'cast', 'country', 'date_added', 'release_year',
+                'rating', 'duration', 'genre', 'description']
+df1 = df1.reindex(columns=column_order)
 # df1.info()
 
 
