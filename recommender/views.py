@@ -33,18 +33,17 @@ def generator(request):
                 for country in selected_countries:
                     country_query |= Q(country__contains=country)
                 movies = movies.filter(country_query)
-
-            # Get the total number of available movies in the queryset
             total_movies = movies.count()
-
             if total_movies <= 3:
-                # If there are 5 or fewer movies, return all available movies as recommendations
                 recommendations = list(movies)
             else:
-                # Randomly select 5 movies from the filtered queryset
                 recommendations = random.sample(list(movies), 3)
+            for movie in recommendations:
+                if movie.duration:
+                    movie.duration = int(round(float(movie.duration)))
 
             return render(request, 'results.html', {'recommendations': recommendations})
+
     else:
         form = MoviePreferencesForm()
 

@@ -7,9 +7,7 @@ class MoviePreferencesForm(forms.Form):
     # GENRES
     movies_with_genre = Movie.objects.exclude(genre__isnull=True)
     GENRES = sorted(set(genre for movie in movies_with_genre for genre in movie.genre.split(', ')))
-    GENRES.remove('TV Shows')
     GENRES.remove('Movies')
-    GENRES.remove('Series')
     genre = forms.MultipleChoiceField(
         choices=[(genre, genre) for genre in GENRES],
         widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
