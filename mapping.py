@@ -117,3 +117,21 @@ rating_mapping = {
     'NOT_RATE': np.nan,
     'UNRATED': np.nan,
 }
+
+rating_mapping2 = {
+    'TV-Y7-FV': 'TV-PG',
+    'ALL_AGES': 'ALL AGES',
+    'AGES_16_': '16+',
+    'AGES_18_': '18+',
+    'TV-Y7': 'TV-PG',
+    'NC-17': 'TV-MA',
+    'TV-14': 'TV-PG',
+    'TV-Y': 'PG-13',
+    'ALL': 'ALL AGES',
+    '13+': 'PG-13',
+    'PG': 'PG-13',
+    '7+': 'ALL AGES',
+    '16': '16+',
+    'R': 'TV-MA',
+    'G': 'TV-G'
+}
