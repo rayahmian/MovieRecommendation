@@ -76,7 +76,7 @@ df = df.reindex(columns=column_order)
 # Only keep entries that have duration in minutes
 df['duration'] = df['duration'].astype(str)
 df = df[~df['duration'].str.contains('Season')]
-df['duration'] = df['duration'].str.extract('(\d+)').astype(float)
+df['duration'] = df['duration'].str.extract('(\d+)').astype('Int64')
 
 # Format the ratings
 df['rating'] = df['rating'].astype(str)
@@ -84,14 +84,15 @@ df = df[~df['rating'].str.contains('Season')]
 df['rating'] = df['rating'].replace(rating_mapping, regex=True)
 df['rating'] = df['rating'].replace(rating_mapping2)
 
-# Format genres
+# Format the genres
 for index, row in df.iterrows():
     genres = row['genre'].split(', ')
     new_genres = [genre_mapping[genre] if genre in genre_mapping else genre for genre in genres]
     df.at[index, 'genre'] = ', '.join(new_genres)
 df['genre'] = df['genre'].apply(remove_duplicate_genres)
+df.reset_index(drop=True, inplace=True)
 
 # EXPORT DF TO CSV
 # df.to_csv('movies_data.csv', index=False)
-# print(df.sample(n=1))
+# print(df.sample(n=1)['duration'])
 # df.info()
