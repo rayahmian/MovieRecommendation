@@ -1,3 +1,5 @@
+import numpy as np
+
 # Create a dictionary of acceptable genres
 genre_mapping = {
     'Arts, Entertainment, and Culture': 'Arts & Lifestyle',
@@ -102,4 +104,16 @@ genre_mapping = {
     'Kids': 'Children & Family',
     'Teen': 'Teen & Young Adult',
     'Arts': 'Arts & Lifestyle',
+}
+
+# Create a dictionary for ratings null values
+rating_mapping = {
+    'min': np.nan,
+    'nan': np.nan,
+    'None': np.nan,
+    'NR': np.nan,
+    'UR': np.nan,
+    'NOT RATED': np.nan,
+    'NOT_RATE': np.nan,
+    'UNRATED': np.nan,
 }
