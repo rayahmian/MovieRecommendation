@@ -17,7 +17,7 @@ streaming platform.
 ## Dataset Collection and Preprocessing
 The project utilizes movie datasets from four popular streaming platforms: Netflix, Amazon Prime, Hulu, and Disney Plus.
 The datasets were sourced from Kaggle and contained a total of 22,998 entries. The data was preprocessed, cleaned, and 
-transformed to create a consolidated dataset with 16,165 entries, combining information from all platforms.
+transformed to create a consolidated dataset with 16,165 entries.
 
 The project includes exploratory data analysis (EDA) with various data visualizations for the dataset. EDA revealed 
 that the dataset contains diverse movies spanning from 1920 to 2021, with genres ranging from Drama to Comedy. 
