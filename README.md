@@ -1,5 +1,7 @@
 # Movie Recommender
 
+-----------------------------------------------------------------------------------------------------------------------
+
 ## Overview
 This Movie Recommender is a web application built using Django, Python, and HTML. It allows users to discover 
 randomized movie recommendations based on their selected preferences, such as genre, release year, country and
@@ -10,9 +12,9 @@ streaming platform.
 2. Get personalized recommendations: The recommender system matches your inputted preferences with the available movie database and generates three random movie suggestions.
 3. Explore detailed movie information: View movie titles, directors, cast, ratings, durations, and descriptions for each recommendation.
 
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
+![img_5.png](img_5.png)
+![img_6.png](img_6.png)
+![img_7.png](img_7.png)
 
 ## Dataset Collection and Preprocessing
 The project utilizes movie datasets from four popular streaming platforms: Netflix, Amazon Prime, Hulu, and Disney Plus.
