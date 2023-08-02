@@ -1,7 +1,5 @@
 # Movie Recommender
 
------------------------------------------------------------------------------------------------------------------------
-
 ## Overview
 This Movie Recommender is a web application built using Django, Python, and HTML. It allows users to discover 
 randomized movie recommendations based on their selected preferences, such as genre, release year, country and
