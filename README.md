@@ -1,4 +1,4 @@
-# Movie Recommender
+# Movie Recommender 📽️
 
 ## Overview
 This Movie Recommender is a web application built using Django, Python, and HTML. It allows users to discover 
